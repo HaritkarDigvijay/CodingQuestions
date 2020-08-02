@@ -1,1 +1,95 @@
+##Problem :
+Given an unsorted array A of size N of non-negative integers, find a continuous sub-array which adds to a given number S.
 
+Input:
+The first line of input contains an integer T denoting the number of test cases. Then T test cases follow. Each test case consists of two lines. The first line of each test case is N and S, where N is the size of array and S is the sum. The second line of each test case contains N space separated integers denoting the array elements.
+
+Output:
+For each testcase, in a new line, print the starting and ending positions(1 indexing) of first such occuring subarray from the left if sum equals to subarray, else print -1.
+
+Constraints:
+1 <= T <= 100
+1 <= N <= 107
+1 <= Ai <= 1010
+
+Example:
+Input:
+2
+5 12
+1 2 3 7 5
+10 15
+1 2 3 4 5 6 7 8 9 10
+Output:
+2 4
+1 5
+
+Explanation :
+Testcase1: sum of elements from 2nd position to 4th position is 12
+Testcase2: sum of elements from 1st position to 5th position is 15
+
+** For More Input/Output Examples Use 'Expected Output' option **
+
+Code :
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+		InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		String secArr[];
+		int arr2[];
+		int arr[];
+		
+		int testCases = Integer.parseInt(br.readLine());
+		while (testCases > 0) {
+		    String second, arrStr;
+		    
+		    second  =   br.readLine();
+		    secArr  =   second.split(" ");
+		    arr2    =   stringToInteger(secArr, 2);
+		    
+		    arrStr  =   br.readLine();
+		    secArr  =   arrStr.split(" ");
+		    arr     =   stringToInteger(secArr, arr2[0]);
+		    
+		    subArraySum(arr, arr2[0], arr2[1]);
+		    
+		    --testCases;
+		}
+	}
+	
+	public static int[] stringToInteger(String arr[], int len) {
+	    int arrInt[] = new int[len];
+	    for(int i=0; i<len; i++){
+	        arrInt[i] = Integer.parseInt(arr[i]);
+	    }
+	    return arrInt;
+	}
+	
+	public static void subArraySum(int arr[], int len, int subArrSum) {
+		
+		int leftCur=0, currSum=0;
+		
+		for(int i=0; i<=len; i++) {
+			while(currSum > subArrSum && leftCur < i) {
+				currSum -= arr[leftCur++];
+				//System.out.println("1-->"+currSum+"i-->"+i);
+			}
+			
+			if(currSum == subArrSum) {
+				System.out.println(leftCur+1 +" "+ (i));
+				return;
+			}
+			if(i < len) {
+				currSum += arr[i];
+				//System.out.println("2-->"+currSum+"i-->"+i);
+			}			
+		}
+		System.out.println("-1");
+	}
+}
