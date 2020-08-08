@@ -1,0 +1,84 @@
+Question : https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
+Longest Increasing Subsequence | DP-3
+Last Updated: 18-05-2020
+We have already discussed Overlapping Subproblems and Optimal Substructure properties.
+
+Now, let us discuss the Longest Increasing Subsequence (LIS) problem as an example problem that can be solved using Dynamic Programming.
+The Longest Increasing Subsequence (LIS) problem is to find the length of the longest subsequence of a given sequence such that all elements 
+of the subsequence are sorted in increasing order. 
+For example, the length of LIS for {10, 22, 9, 33, 21, 50, 41, 60, 80} is 6 and LIS is {10, 22, 33, 50, 60} or {10, 22, 33, 41, 60}.
+
+Code:
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+		InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		String secArr[];
+		int arr[];
+		
+		int testCases = Integer.parseInt(br.readLine());
+		while (testCases > 0) {
+		    int len  =   Integer.parseInt(br.readLine());
+		    
+		    String arrStr  =   br.readLine();
+		    secArr  =   arrStr.split(" ");
+		    arr     =   stringToInteger(secArr, len);
+		    
+		    //if(len > 1) {
+    		    System.out.println(maxSumIncSubSeq(arr, len));
+		    //}
+		    //else System.out.println("1");
+		    
+		    --testCases;
+		}
+	}
+	
+	public static int[] stringToInteger(String arr[], int len) {
+	    int arrInt[] = new int[len];
+	    for(int i=0; i<len; i++){
+	        arrInt[i] = Integer.parseInt(arr[i]);
+	    }
+	    return arrInt;
+	}
+	
+	public static int maxSumIncSubSeq(int arr[], int len) {
+		int lis[] = new int [len];
+		int sum[] = new int [len];
+		int maxLen=0; int maxSum=0;
+		
+		for(int i=0; i<len; i++) {
+			lis[i]=1; 
+			sum[i]=arr[i];
+		}
+		
+		for(int i=1; i<len; i++) {
+			for(int j=0; j<i; j++) {
+				if(arr[i]>arr[j] && lis[i]<lis[j]+1) {
+					lis[i] = lis[j]+1;
+					sum[i] = Math.max(sum[j] + arr[i], sum[i]);
+//					System.out.println("i="+i+"	j="+j);
+//					System.out.print("lis : "); display(lis, 21);
+//					System.out.print("sum : "); display(sum, 21); 
+					if(lis[i] > maxLen) maxLen=lis[i];
+					if(sum[i] > maxSum) maxSum=sum[i];
+				}
+			}
+		}
+		
+		return maxLen;
+	}
+	
+	public static void display(int arr[], int len) {
+		for(int i=0; i<len; i++) {
+			System.out.print(arr[i]+", ");
+		}
+		System.out.print("\n");
+	}
+}
