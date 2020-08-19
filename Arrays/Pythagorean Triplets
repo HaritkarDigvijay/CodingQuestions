@@ -1,0 +1,92 @@
+##Pythagorean Triplet##
+-----------------------
+      
+Problems
+Given an array of integers, write a function that returns true if there is a triplet (a, b, c) that satisfies a2 + b2 = c2.
+
+Input:
+The first line contains T, denoting the number of testcases. Then follows description of testcases. Each case begins with a single positive integer N denoting the size of array. The second line contains the N space separated positive integers denoting the elements of array A.
+
+Output:
+For each testcase, print "Yes" or  "No" whether it is Pythagorean Triplet or not (without quotes).
+
+Constraints:
+1 <= T <= 100
+1 <= N <= 10^7
+1 <= A[i] <= 1000
+
+Example:
+Input:
+1
+5
+3 2 4 6 5
+
+Output:
+Yes
+
+Explanation:
+Testcase 1: a=3, b=4, and c=5 forms a pythagorean triplet, so we print "Yes"
+
+** For More Input/Output Examples Use 'Expected Output' option
+
+Code : 
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+        InputStreamReader ir = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(ir);
+        String secArr[];
+        int len;
+        int arr[];
+        int testCases = Integer.parseInt(br.readLine());
+        while (testCases > 0) {
+            String arrStr;
+            len = Integer.parseInt(br.readLine());
+            arrStr = br.readLine();
+            secArr = arrStr.split(" ");
+            arr = stringToInteger(secArr, len);
+            System.out.println(pythogoreanTriplet(arr, len));
+            --testCases;
+        }
+    }
+    public static int[] stringToInteger(String arr[], int len) {
+        int arrInt[] = new int[len];
+        for(int i=0; i<len; i++){
+            arrInt[i] = Integer.parseInt(arr[i]);
+        }
+        return arrInt;
+    }
+    public static String pythogoreanTriplet(int arr[], int len) {
+    	
+    	int max=0;
+    	for(int i=0; i<len; i++) {
+    		if(arr[i]>max) max=arr[i];
+    	}
+    	
+    	int hash[] = new int[max+1];
+    	
+    	for(int i=0; i<len; i++) {
+    		++hash[arr[i]];
+    	}
+    	
+    	for(int i=1; i<=max; i++) {
+    		if(hash[i]==0) continue;
+    		for(int j=1; j<=max; j++) {
+    			if((i==j && hash[j]==1) || hash[j]==0) continue;
+    			int val = (int)Math.sqrt(i*i+j*j);
+    			if((val*val) != (i*i+j*j)) continue;
+    			if(val>max) continue;
+    			if(hash[val]>0) return "Yes";
+    		}
+    	}
+    	
+    	return "No";
+    }
+}
+
+Submit your code here : https://practice.geeksforgeeks.org/problems/pythagorean-triplet/0/
