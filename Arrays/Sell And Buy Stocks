@@ -1,0 +1,96 @@
+##Stock buy and sell##
+----------------------
+
+Problems
+The cost of stock on each day is given in an array A[] of size N. Find all the days on which you buy and sell the stock so that in between those days your profit is maximum.
+
+Input: 
+First line contains number of test cases T. First line of each test case contains an integer value N denoting the number of days, followed by an array of stock prices of N days. 
+
+Output:
+For each testcase, output all the days with profit in a single line. And if there is no profit then print "No Profit".
+
+Constraints:
+1 <= T <= 100
+2 <= N <= 103
+0 <= Ai <= 104
+
+Example
+Input:
+3
+7
+100 180 260 310 40 535 695
+4
+100 50 30 20
+10
+23 13 25 29 33 19 34 45 65 67
+
+Output:
+(0 3) (4 6)
+No Profit
+(1 4) (5 9)
+
+Explanation:
+Testcase 1: We can buy stock on day 0, and sell it on 3rd day, which will give us maximum profit.
+
+Note: Output format is as follows - (buy_day sell_day) (buy_day sell_day)
+For each input, output should be in a single line.
+
+Code : /*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+	    InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		String secArr[];
+		int k;
+		int arr[];
+		int len;
+		
+		int testCases = Integer.parseInt(br.readLine());
+		while (testCases > 0) {
+		    String arrStr;
+		    len =   Integer.parseInt(br.readLine());
+		    arrStr  =   br.readLine();
+		    secArr  =   arrStr.split(" ");
+		    arr     =   stringToInteger(secArr, len);
+		    
+		    maxProfit(arr, len+1);
+		    --testCases;
+		}
+	}
+	
+	public static int[] stringToInteger(String arr[], int len) {
+	    int arrInt[] = new int[len+1];
+	    for(int i=0; i<len; i++){
+	        arrInt[i] = Integer.parseInt(arr[i]);
+	    }
+	    return arrInt;
+	}
+	
+	public static void maxProfit(int arr[], int len) {
+	    int diff = 0;
+	    int startDay=0;
+	    StringBuilder result = new StringBuilder();
+	    for(int i=1; i<len; i++){
+	        if(arr[i] > arr[i-1]) {
+	            diff += arr[i]-arr[i-1]; 
+	        }
+	        else if(diff>0) {
+	            result.append("("+startDay+" "+(i-1)+") ");
+	            startDay=i;
+	            diff=0;
+	        }
+	        else if(diff==0) startDay++;
+	    }
+	    if(result.length()==0) result.append("No Profit");
+	    System.out.println(result);
+	}
+}
+
+You can submit your code here : https://practice.geeksforgeeks.org/problems/stock-buy-and-sell/0/#ExpectOP
