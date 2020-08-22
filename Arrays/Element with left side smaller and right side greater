@@ -1,0 +1,114 @@
+##Element with left side smaller and right side greater##
+            
+Problems
+Given an unsorted array of size N. Find the first element in array such that all of its left elements are smaller and all right elements to it are greater than it.
+
+Note: Left and right side elements can be equal to required element. And extreme elements cannot be required element.
+
+Input:
+The first line of input contains an integer T denoting the number of test cases. Then T test cases follow. Each test case consists of two lines. First line of each test case contains an Integer N denoting size of array and the second line contains N space separated array elements.
+
+Output:
+For each test case, in a new line print the required element. If no such element present in array then print -1.
+
+Constraints:
+1 <= T <= 100
+3 <= N <= 106
+1 <= A[i] <= 106
+
+Example:
+Input:
+3
+4
+4 2 5 7
+3
+11 9 12
+6
+4 3 2 7 8 9
+
+Output:
+5
+-1
+7
+Explanation:
+Testcase 1 : Elements on left of 5 are smaller than 5 and on right of it are greater than 5.
+
+Code : 
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+        InputStreamReader ir = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(ir);
+        String secArr[];
+        int len;
+        int arr[];
+        int testCases = Integer.parseInt(br.readLine());
+        while (testCases > 0) {
+            String arrStr;
+            len = Integer.parseInt(br.readLine());
+            arrStr = br.readLine();
+            arrStr = arrStr.replace("  ", " ");
+            secArr = arrStr.split(" ");
+            arr = stringToInteger(secArr, len);
+            System.out.println(leaderNumber(arr, len));
+            --testCases;
+        }
+    }
+	
+	public static int[] stringToInteger(String arr[], int len) {
+        int arrInt[] = new int[len];
+        for(int i=0; i<len; i++){
+            arrInt[i] = Integer.parseInt(arr[i]);
+        }
+        return arrInt;
+    }
+    public static int leaderNumber(int arr[], int len) {
+        int leftArr[] = new int[len];
+        int rightArr[] = new int[len];
+        leftArr[0] = arr[0]; 
+        rightArr[len-1] = arr[len-1];
+        
+        //Find max from left of the array
+        for(int i=1; i<len; i++) {
+            leftArr[i] = Math.max(arr[i], leftArr[i-1]);
+        }
+        
+        //Find max from the right of the array
+        for(int i=len-2; i>=0; i--) {
+            rightArr[i] = Math.min(arr[i], rightArr[i+1]);
+        }
+        //display(leftArr, len);
+        //display(rightArr, len);
+        
+        for(int i=1; i<len-1; i++) {
+            if(arr[i]>=leftArr[i-1] && arr[i]<=rightArr[i+1])
+                return arr[i];
+        }
+        return -1;
+    }
+    
+    static void swap(int arr[], int i, int j) 
+    { 
+        int temp = arr[i]; 
+        arr[i] = arr[j]; 
+        arr[j] = temp; 
+    } 
+    
+    static void print(Object value) {
+        System.out.println("Value="+value);
+    }
+    
+    public static void display(int arr[], int len) {
+        for(int i=0; i<len; i++) {
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println("");
+    }
+}
+
+You can submit your code here : https://practice.geeksforgeeks.org/problems/unsorted-array/0/
