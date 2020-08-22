@@ -1,0 +1,77 @@
+##Find the element that appears once in sorted array##
+------------------------------------------------------
+
+Problems
+Given a sorted array A, size N, of integers; every element appears twice except for one. Find that element that appears once in array.
+
+Input:
+The first line of input consists of T, the number of the test cases. T testcases follow. Each testcase contains two lines of input.
+The first line of each test case contains the size of the array, and the second line has the elements of the array.
+
+Output:
+For each testcase, in a new line, print the number that appears only once in the array.
+
+Constraints:
+1 ≤ T ≤ 100
+1 ≤ N ≤ 107
+0 ≤ A[i] ≤ 1017
+
+Example:
+Input:
+1
+11
+1 1 2 2 3 3 4 50 50 65 65
+Output:
+4
+
+Code : 
+
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+		InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		String secArr[];
+		int arr[];
+		
+		int testCases = Integer.parseInt(br.readLine());
+		while (testCases > 0) {
+		    int len  =   Integer.parseInt(br.readLine());
+		    
+		    String arrStr  =   br.readLine();
+		    arrStr  = arrStr.replace("  ", " ");
+		    secArr  =   arrStr.split(" ");
+		    arr     =   stringToInteger(secArr, len);
+		    
+		    System.out.println(single(arr, len));
+		    
+		    --testCases;
+		}
+	}
+	
+	public static int[] stringToInteger(String arr[], int len) {
+	    int arrInt[] = new int[len];
+	    for(int i=0; i<len; i++){
+	        arrInt[i] = Integer.parseInt(arr[i]);
+	    }
+	    return arrInt;
+	}
+	
+	public static int single(int arr[], int len) {
+		int i=0;
+		for(;i<len-1; i=i+2) {
+		    if(arr[i]!=arr[i+1]) {
+		        break;
+		    }
+		}
+		return arr[i];
+	}
+}
+
+Submit your code here : https://practice.geeksforgeeks.org/problems/find-the-element-that-appears-once-in-sorted-array/0/
