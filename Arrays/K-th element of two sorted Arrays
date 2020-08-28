@@ -1,0 +1,106 @@
+K-th element of two sorted Arrays
+        
+Problems
+Given two sorted arrays A and B of size M and N respectively and an element k. The task is to find the element that would be at the k’th position of the final sorted array.
+
+Input:
+First line consists of test cases T. First line of every test case consists of 3 integers N, M and K, denoting M number of elements in A, N number of elements in B and kth position element. Second and Third line of every test case consists of elements of A and B respectively.
+
+Output:
+Print the element at the Kth position.
+
+Constraints:
+1 <= T <= 200
+1 <= N, M <= 106
+1 <= Ai, Bi <= 106
+1 <= K <= N+M
+
+Example:
+Input:
+1
+5 4 5
+2 3 6 7 9
+1 4 8 10
+
+Output:
+6
+
+Explanation:
+Testcase 1: Element at 5th position after merging both arrays will be 6.
+
+Code : 
+
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+		InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		String input;
+		String secArr[];
+		int arr[];
+		int arr1[];
+		int arr2[];
+		int m; int n; int k; 
+		
+		int testCases = Integer.parseInt(br.readLine());
+		while (testCases > 0) {
+		    input   =   br.readLine();
+		    secArr  =   input.split(" ");
+		    arr     =   stringToInteger(secArr, 3);
+		    m = arr[0]; n = arr[1]; k = arr[2];
+		    
+		    input   =   br.readLine();
+		    secArr  =   input.split(" ");
+		    arr1    =   stringToInteger(secArr, m);
+		    
+		    input   =   br.readLine();
+		    secArr  =   input.split(" ");
+		    arr2    =   stringToInteger(secArr, n);
+		    
+		    System.out.println(kthSmallestElement(arr1, arr2, m, n, k));
+		    --testCases;
+		}
+	}
+	
+	public static int[] stringToInteger(String arr[], int len) {
+	    int arrInt[] = new int[len];
+	    for(int i=0; i<len; i++){
+	        arrInt[i] = Integer.parseInt(arr[i]);
+	    }
+	    return arrInt;
+	}
+	
+	public static int kthSmallestElement(int arr1[], int arr2[], int m, int n, int k) {
+		
+		if (m > n) 
+            return kthSmallestElement(arr2, arr1, n, m, k); 
+		
+		if(m==0) {
+			return arr2[k-1];
+		}
+		
+		if(k==1) return Math.min(arr1[0], arr2[0]);
+		
+		int i=Math.min(m, k/2);
+		int j=Math.min(n, k/2);
+		//System.out.println("i-->"+i+" j-->"+j);
+		
+		if(arr1[i-1] > arr2[j-1]) {
+			int temp[] = Arrays.copyOfRange(arr2, j, n);
+			//System.out.println("kthSmallestElement("+display(arr1)+", "+display(temp)+", m-->"+m+", n-->"+n+", k-->"+k+")");
+			return kthSmallestElement(arr1, temp, m, n-j, k-j);
+		}
+		
+		int temp[] = Arrays.copyOfRange(arr1, i, m);
+		//System.out.println("kthSmallestElement("+display(arr1)+", "+display(temp)+", m-->"+m+", n-->"+n+", k-->"+k+")");
+		return kthSmallestElement(temp, arr2, m-i, n, k-i);
+	}
+}
+
+Submit your solution here : https://practice.geeksforgeeks.org/problems/k-th-element-of-two-sorted-array/0/
