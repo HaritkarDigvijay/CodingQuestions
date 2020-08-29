@@ -29,6 +29,56 @@ Testcase 1: 10th number in the sequence of numbers whose each digit is prime is 
 Testcase 2: 21st number in the sequence of numbers whose each digit is prime is 222.
 
 Code : 
+/*package whatever //do not write package name here */
 
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+		InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		int testCases = Integer.parseInt(br.readLine());
+		//System.out.print(testCases);
+		while(testCases>0) {
+		    int number = Integer.parseInt(br.readLine());
+		    String arr[] = new String[100];
+		    arr[0] = "2"; arr[1] = "3"; arr[2] = "5"; arr[3] = "7";
+		    
+		    for(int i=1; i<25; i=i+4) {
+		        arr[4*i]    = arr[i-1] + "2";
+		        arr[4*i+1]  = arr[i-1] + "3";
+		        arr[4*i+2]  = arr[i-1] + "5";
+		        arr[4*i+3]  = arr[i-1] + "7";
+		          
+		        arr[4*i+4]  = arr[i] + "2";
+		        arr[4*i+5]  = arr[i] + "3";
+		        arr[4*i+6]  = arr[i] + "5";
+		        arr[4*i+7]  = arr[i] + "7";
+		        
+		        arr[4*i+8]  = arr[i+1] + "2";
+		        arr[4*i+9]  = arr[i+1] + "3";
+		        arr[4*i+10]  = arr[i+1] + "5";
+		        arr[4*i+11]  = arr[i+1] + "7";
+		        
+		        arr[4*i+12]  = arr[i+2] + "2";
+		        arr[4*i+13]  = arr[i+2] + "3";
+		        arr[4*i+14]  = arr[i+2] + "5";
+		        arr[4*i+15]  = arr[i+2] + "7";
+		    }
+		    System.out.println(arr[number-1]);
+		    --testCases;
+		}
+		
+	}
+	
+	public static void display(String arr[], int len) {
+		for(int i=0; i<len; i++) {
+			System.out.println(arr[i]);
+		}
+	}
+}
 
 Submit your code here : 
