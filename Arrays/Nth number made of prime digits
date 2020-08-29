@@ -29,6 +29,7 @@ Testcase 1: 10th number in the sequence of numbers whose each digit is prime is 
 Testcase 2: 21st number in the sequence of numbers whose each digit is prime is 222.
 
 Code : 
+//Method1
 /*package whatever //do not write package name here */
 
 import java.util.*;
@@ -69,6 +70,49 @@ class GFG {
 		        arr[4*i+15]  = arr[i+2] + "7";
 		    }
 		    System.out.println(arr[number-1]);
+		    --testCases;
+		}
+		
+	}
+	
+	public static void display(String arr[], int len) {
+		for(int i=0; i<len; i++) {
+			System.out.println(arr[i]);
+		}
+	}
+}
+
+//Method2
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) throws IOException {
+		InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		int testCases = Integer.parseInt(br.readLine());
+		//System.out.print(testCases);
+		while(testCases>0) {
+		    int number = Integer.parseInt(br.readLine());
+		    int rem=0;
+		    String num="";
+		    while(number>0) {
+		        rem = number%4;
+		        //System.out.println("rem-->"+rem);
+		        switch(rem) {
+    		        case 1: num="2"+num; break;
+    		        case 2: num="3"+num; break;
+    		        case 3: num="5"+num; break;
+    		        case 0: num="7"+num; break;
+		        }
+		        if(number%4==0) number--;
+		        number = number/4;
+		    }
+		    System.out.println(num);
 		    --testCases;
 		}
 		
