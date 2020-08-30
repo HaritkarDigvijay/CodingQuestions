@@ -1,0 +1,93 @@
+##Length of longest subarray##
+------------------------------
+
+Problems
+Given an array, return length of the longest subarray of non- negative integers.
+
+Note: Subarray here means a continuous part of the array.
+
+Input:
+The first line of input contains an integer T denoting the number of test cases. Then T test cases follow. Each test case contains an integer n denoting the size of the array. The following line contains n space separated integers forming the array.
+
+Output:
+Print the length of the longest subarray of non-negative integers.
+
+Constraints:
+1<=T<=10^5
+1<=n<=10^5
+1<=a[i]<=10^5
+
+Example:
+Input:
+2
+9
+2 3 4 -1 -2 1 5 6 3
+10
+1 0 0 1 -1 -1 0 0 1 0
+
+Output:
+4
+4
+
+code : 
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+	public static void main (String[] args) throws IOException {
+        InputStreamReader   ir  =   new InputStreamReader(System.in);
+		BufferedReader      br  =   new BufferedReader(ir);
+		
+		String secArr[];
+		int k;
+		int arr[];
+		int len;
+		
+		int testCases = Integer.parseInt(br.readLine());
+		while (testCases > 0) {
+		    String arrStr;
+		    len =   Integer.parseInt(br.readLine());
+		    arrStr  =   br.readLine();
+		    secArr  =   arrStr.split(" ");
+		    arr     =   stringToInteger(secArr, len);
+		    
+		    System.out.println(longestSubarray(arr, len));
+		    --testCases;
+		}
+	 }
+	 
+	 public static int longestSubarray(int arr[], int len) {
+	     int count=0; int result=0;
+	     for(int i=0; i<len; i++) {
+	         if(arr[i]>-1) count++;
+	         else {
+	             result = Math.max(count, result); count=0;
+	         }
+	     }
+	     result = Math.max(count, result);
+	     return result;
+	 }
+     
+     public static int[] stringToInteger(String arr[], int len) {
+	    int arrInt[] = new int[len];
+	    for(int i=0; i<len; i++){
+	        arrInt[i] = Integer.parseInt(arr[i]);
+	    }
+	    return arrInt;
+	}
+     
+     public static void println(int item) {
+     	System.out.println(item);
+     }
+     
+     public static void println(String item) {
+     	System.out.println(item);
+     }
+     
+     public static void display(int arr[], int len) {
+       for(int i=0; i<len; i++) {
+              println(arr[i]);
+          }
+     }
+}
